@@ -33,7 +33,7 @@ image:
   groupmanagement: sdsdockerhub/group-management-system:1.17.0
   imsbridge: sdsdockerhub/ers-ims-bridge:1.14.1
   inventorymanagement: sdsdockerhub/inventory-management-system:1.26.2
-  kyc: sdsdockerhub/ers-kycsystem:1.44.0
+  kyc: sdsdockerhub/ers-kycsystem:1.51.0
   notificationmanager: sdsdockerhub/ers-notification-manager:1.13.2
   ordermanagement: sdsdockerhub/order-management-system:1.58.2
   productmanagement: sdsdockerhub/product-management-system:1.22.1
