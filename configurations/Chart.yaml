@@ -1,0 +1,16 @@
+---
+apiVersion: v2
+name: sds-rvm-conf
+description: 'SDS RVM Configurations'
+version: 0.1.0
+appVersion: "1.0.1"
+keywords:
+  - unified
+home: https://seamless.se//
+sources:
+  - repolink
+maintainers:
+  - name: Talha Masood
+    email: talha.masood@seamless.se
+  - name: Khalid Mehmood
+    email: khalid.mehmood@seamless.se

@@ -1,0 +1,50 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-survey-management-main
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/surveymanagement/main/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-survey-management-notification
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/surveymanagement/templates/notification/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-survey-management-tdr
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/surveymanagement/templates/tdr/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-survey-management-copy
+  namespace: {{ .Values.nSpace }}
+data:
+  configs-copy: {{ .Files.Get "scripts/configs-copy-accsm" | quote }}

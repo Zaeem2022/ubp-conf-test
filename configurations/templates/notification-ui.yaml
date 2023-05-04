@@ -1,0 +1,14 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-notification-ui-main
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/notificationui/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}

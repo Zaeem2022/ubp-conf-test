@@ -1,0 +1,139 @@
+---
+apiVersion: v1
+kind: PersistentVolume
+metadata:
+  name: logs-kyc
+  namespace: {{ .Values.nSpace }}
+  labels:
+    type: local
+    name: logs-kyc
+spec:
+  storageClassName: manual
+  capacity:
+    storage: 200Mi
+  accessModes:
+    - ReadWriteOnce
+  persistentVolumeReclaimPolicy: Retain
+  hostPath:
+    path: "{{ .Values.logs }}/kyc"
+---
+apiVersion: v1
+kind: PersistentVolumeClaim
+metadata:
+  name: logs-kyc
+  namespace: {{ .Values.nSpace }}
+spec:
+  accessModes:
+    - ReadWriteOnce
+  resources:
+    requests:
+      storage: 200Mi
+  selector:
+    matchLabels:
+      type: local
+      name: logs-kyc
+  storageClassName: manual
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: kyc
+  namespace: {{ .Values.nSpace }}
+  labels:
+    app: kyc
+spec:
+  replicas: {{ .Values.replica.kyc }}
+  selector:
+    matchLabels:
+      app: kyc
+  template:
+    metadata:
+      labels:
+        app: kyc
+    spec:
+      affinity:
+        podAntiAffinity:
+          requiredDuringSchedulingIgnoredDuringExecution:
+          - labelSelector:
+              matchExpressions:
+              - key: app
+                operator: In
+                values:
+                - kyc
+            topologyKey: kubernetes.io/hostname
+      initContainers:
+        - name: copy-configs
+          image: centos
+          imagePullPolicy: IfNotPresent
+          command: ['bash','/scripts/configs-copy']
+          volumeMounts:
+            - name: config-dir-main
+              mountPath: {{ .Values.conf }}
+            - name: vol-cm-main
+              mountPath: /main
+            - name: vol-cm-kyc-main
+              mountPath: /kyc-main
+            - name: vol-cm-kyc-templates
+              mountPath: /kyc-templates
+            - name: vol-cm-kyc-actions
+              mountPath: /kyc-actions-groovy
+            - name: vol-cm-kyc-copy
+              mountPath: /scripts
+      containers:
+        - name: kyc
+          image: {{ .Values.image.kyc }}
+          imagePullPolicy: IfNotPresent
+          ports:
+            - containerPort: 8297
+          volumeMounts:
+            - name: tz-{{ .Values.country }}
+              mountPath: /etc/localtime
+            - name: config-dir-main
+              mountPath: {{ .Values.conf }}
+            - name: vol-logs-kyc
+              mountPath: {{ .Values.logs }}/kyc
+      volumes:
+        - name: tz-{{ .Values.country }}
+          hostPath:
+            path: /usr/share/zoneinfo/{{ .Values.timzone }}
+        - name: vol-cm-main
+          configMap:
+            name: cm-main
+        - name: vol-cm-kyc-main
+          configMap:
+            name: cm-kyc-main
+        - name: vol-cm-kyc-templates
+          configMap:
+            name: cm-kyc-templates
+        - name: vol-cm-kyc-actions
+          configMap:
+            name: cm-kyc-actions
+        - name: vol-logs-kyc
+          persistentVolumeClaim:
+            claimName: logs-kyc
+        - name: config-dir-main
+          emptyDir: {}
+        - name: vol-cm-kyc-copy
+          configMap:
+            name: cm-kyc-copy
+      imagePullSecrets:
+        - name: {{ .Values.secret }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    app: kyc
+  name: ers-kyc-service
+  namespace: {{ .Values.nSpace }}
+spec:
+  ports:
+    - port: 8297
+      nodePort: {{ if eq .Values.nSpace "ers-dev" }} 30009
+                {{ else if eq .Values.nSpace "ers-staging" }} 31009
+                {{ else if eq .Values.nSpace "ers" }} 32009
+                {{ else }} 32009 {{ end }}
+      targetPort: 8297
+  selector:
+    app: kyc
+  type: NodePort

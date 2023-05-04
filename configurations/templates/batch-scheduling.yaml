@@ -1,0 +1,78 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-batch-scheduling-main
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/batchscheduling/main/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-batch-scheduling-feeder
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/batchscheduling/datafeeder/templates/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-batch-scheduling-notifications
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/batchscheduling/notifications/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-batch-scheduling-samples
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/batchscheduling/samples/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-batch-scheduling-templates
+  namespace: {{ .Values.nSpace }}
+data:
+{{ $currentScope := . }}
+{{ range $path, $_ :=  .Files.Glob  "configs/batchscheduling/templates/**" }}
+{{- with $currentScope}}
+  {{ (base $path) }}: |-
+{{ .Files.Get $path | indent 6 }}
+{{ end }}
+{{ end }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-batch-scheduling-copy
+  namespace: {{ .Values.nSpace }}
+data:
+  configs-copy: {{ .Files.Get "scripts/configs-copy-bsch" | quote }}

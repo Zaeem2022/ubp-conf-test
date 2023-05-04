@@ -1,0 +1,11 @@
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: cm-haproxy-main
+  namespace: {{ .Values.nSpace }}
+data:
+  haproxy.cfg: |
+    {{- with .Files.Get "configs/haproxy/haproxy.cfg" }}
+    {{- . | nindent 4 }}
+    {{- end }}

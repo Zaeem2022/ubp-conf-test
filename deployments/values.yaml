@@ -1,0 +1,126 @@
+# NAMSPACE
+nSpace: ers
+
+# COUNTRY & TIMEZONE
+timzone: Asia/Dhaka
+country: bangladesh
+
+# DOCKER-REGISTRY LOGIN & SECRET
+imageCredentials:
+  registry: index.docker.io
+  username: 
+  password: 
+secret: docker-repo-login
+
+MYSQL_ROOT_PASSWORD: 
+RABBITMQ_USER: guest
+
+# CONF
+conf: /opt/seamless/conf
+
+# LOGS
+logs: /var/seamless/log
+
+# DOCKER IMAGE
+image:
+  haproxy: sdshubdocker/haproxy:talha
+  coreproxy: sdsdockerhub/ers-coreproxy:1.62.0
+  businesslogic: sdsdockerhub/ers-businesslogic:3.54.4
+  accountmanagement: sdsdockerhub/account-management-service:1.14.0
+  accessmanagement: sdsdockerhub/access-management-system:1.10.2
+  contractmanagement: sdsdockerhub/ers-contract-management-system:2.14.0
+  dealermanagement: sdsdockerhub/ers-dealer-management-system:1.92.0
+  groupmanagement: sdsdockerhub/group-management-system:1.17.0
+  imsbridge: sdsdockerhub/ers-ims-bridge:1.14.1
+  inventorymanagement: sdsdockerhub/inventory-management-system:1.26.2
+  kyc: sdsdockerhub/ers-kycsystem:1.44.0
+  notificationmanager: sdsdockerhub/ers-notification-manager:1.13.2
+  ordermanagement: sdsdockerhub/order-management-system:1.58.2
+  productmanagement: sdsdockerhub/product-management-system:1.22.1
+  subscribersystem: sdsdockerhub/ers-subscribersystem:3.34.2
+  templatemanagement: sdsdockerhub/template-management-system:1.7.0
+  identitymanagement: sdsdockerhub/ers-identity-management:1.37.2
+  kafka: sdshubdocker/kafka:latest
+  txe: sdsdockerhub/ers-txe:3.380.0
+  mariadb: mariadb:10.4.17
+  objectstore: sdsdockerhub/object-store-manager:1.12.1
+  minio: sdsdockerhub/minio:latest
+  configservices: sdsdockerhub/ers-config-services:1.12.1
+  integrationservices: sdsdockerhub/ers-integration-services:1.98.2
+  nginx: sdsdockerhub/nginx-nonroot:v7
+  accountlink: sdsdockerhub/ers-accountlinksimulator:3.4.0
+  agentscheduler: sdsdockerhub/agent-assignment-scheduler:1.23.0
+  agentassignment: sdsdockerhub/agent-assignment-system:1.23.0
+  alertapp: sdsdockerhub/ers-alertapp:feature-SE-445-1
+  batchscheduling: sdsdockerhub/batch-scheduling-system:1.33.0
+  billingsettlement: sdsdockerhub/billing-settlement-system:1.10.0
+  diameterlink: sdsdockerhub/ers-diameter-link:1.9.2
+  diametersimulator: sdsdockerhub/ers-diameter-simulator:1.3.0
+  filebeat: elastic/filebeat:8.6.0
+  ldaplink: sdsdockerhub/ers-ldaplink:1.15.0
+  linksimulator: sdsdockerhub/ers-link-simulator:1.21.0
+  notificationui: sdsdockerhub/ers-notification-ui:1.12.1
+  otpmanagement: sdsdockerhub/otp-management-system:1.6.0
+  rabbitmq: sdsdockerhub/rabbitmq-ubp:3.10.7
+  referencegenerator: sdsdockerhub/ers-reference-generator:1.10.0
+  regionmanagement: sdsdockerhub/ers-region-management:1.10.0
+  scccommission: sdsdockerhub/scc-commission-engine:1.5.0
+  sccengine: sdsdockerhub/scc-engine:1.4.0
+  sccingestor: sdsdockerhub/scc-live-data-ingestor:1.5.0
+  sccpayout: sdsdockerhub/scc-payout-engine:1.3.0
+  sccstd: sdsdockerhub/scc-std-link:1.1.0
+  surveymanagement: sdsdockerhub/survey-management-system:1.9.0
+  tripscheduler: sdsdockerhub/trip-management-scheduler:1.24.1
+  tripmanagement: sdsdockerhub/trip-management-system:1.24.1
+  ussdapp: sdsdockerhub/ers-ussdapp:2.191.0
+
+# NUMBER OF REPLICAS
+replica:
+  haproxy: 1
+  coreproxy: 1
+  businesslogic: 1
+  accountmanagement: 1
+  accessmanagement: 1
+  contractmanagement: 1
+  dealermanagement: 1
+  groupmanagement: 1
+  imsbridge: 1
+  inventorymanagement: 1
+  kyc: 1
+  notificationmanager: 1
+  ordermanagement: 1
+  productmanagement: 1
+  subscribersystem: 1
+  templatemanagement: 1
+  identitymanagement: 1
+  kafka: 1
+  txe: 1
+  objectstore: 1
+  minio: 1
+  configservices: 1
+  integrationservices: 1
+  nginx: 1
+  accountlink: 1
+  agentscheduler: 1
+  agentassignment: 1
+  alertapp: 1
+  batchscheduling: 1
+  billingsettlement: 1
+  diameterlink: 1
+  diametersimulator: 1
+  ldaplink: 1
+  linksimulator: 1
+  notificationui: 1
+  otpmanagement: 1
+  rabbitmq: 1
+  referencegenerator: 1
+  regionmanagement: 1
+  scccommission: 1
+  sccengine: 1
+  sccingestor: 1
+  sccpayout: 1
+  sccstd: 1
+  surveymanagement: 1
+  tripscheduler: 1
+  tripmanagement: 1
+  ussdapp: 1

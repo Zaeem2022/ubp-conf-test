@@ -1,0 +1,8 @@
+#!/bin/bash
+
+mkdir -p /opt/seamless/conf/kyc/{templates,actions_groovy}
+
+cp /main/* /opt/seamless/conf/
+cp /kyc-main/* /opt/seamless/conf/kyc/
+cp /kyc-templates/* /opt/seamless/conf/kyc/templates/
+cp /kyc-actions-groovy/* /opt/seamless/conf/kyc/actions_groovy/
