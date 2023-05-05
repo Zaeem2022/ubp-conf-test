@@ -98,7 +98,7 @@ spec:
             path: /usr/share/zoneinfo/{{ .Values.timzone }}
         - name: vol-cm-main
           configMap:
-            name: cm-main
+            name: vol-cm-main
         - name: vol-cm-kyc-main
           configMap:
             name: cm-kyc-main
